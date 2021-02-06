@@ -1,0 +1,33 @@
+// This file is my original file and original chip.
+// This chip(API) is used at Mux4Way16.hdl
+
+CHIP Mux4Way {
+    IN a, b, c, d, sel0, sel1;
+    OUT out;
+
+    PARTS:
+    //a
+    Not(in= sel0, out= notsel0of1);
+    Not(in= sel1, out= notsel1of1);
+    And(a=notsel0of1, b=notsel1of1, out=selfora);
+    And(a=a, b=selfora, out=w1);
+
+    //b
+    Not(in= sel1, out= notsel1of2);
+    And(a=sel0, b=notsel1of2, out=selforb);
+    And(a=b, b=selforb, out=w2);
+
+    //c
+    Not(in= sel0, out= notsel0of2);
+    And(a=notsel0of2, b=sel1, out=selforc);
+    And(a=c, b=selforc, out=w3);
+
+    //d
+    And(a=sel0, b=sel1, out=selford);
+    And(a=d, b=selford, out=w4);
+
+    Or(a=w1, b=w2, out=w5);
+    Or(a=w3, b=w4, out=w6);
+
+    Or(a=w5, b=w6, out=out);
+}
