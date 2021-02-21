@@ -10,7 +10,12 @@ Codes or binary files right here are software tools, the answers, or tests scrip
 You can use my code as hints or to check different ways of answer.
 
 ## Usage for mac user
+### Setup
 <a href="https://drive.google.com/file/d/1QDYIvriWBS_ARntfmZ5E856OEPpE4j1F/view
 " target="_blank">Nand2Tetris Setup Guide for Apple for MacOS</a>
+
+### Hardware Simulator
+<a href="https://b1391bd6-da3d-477d-8c01-38cdf774495a.filesusr.com/ugd/44046b_bfd91435260748439493a60a8044ade6.pdf
+" target="_blank">Hardware Simulator Tutorial</a>
 
 Appreciate if you give me bug reports or some advices on my codes.
