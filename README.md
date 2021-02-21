@@ -1,4 +1,5 @@
 # The Elements of Computing Systems
+## About
 The Elements of Computing Systems (Building a Modern Computer from First Principles) is a book written by Noam Nisan and Shimon Schocken.
 
 <a href="https://www.amazon.co.jp/-/en/Noam-Nisan/dp/0262640686
@@ -7,5 +8,9 @@ The Elements of Computing Systems (Building a Modern Computer from First Princip
 
 Codes or binary files right here are software tools, the answers, or tests scripts of Implementation section in the book.
 You can use my code as hints or to check different ways of answer.
+
+## Usage for mac user
+<a href="https://drive.google.com/file/d/1QDYIvriWBS_ARntfmZ5E856OEPpE4j1F/view
+" target="_blank">Nand2Tetris Setup Guide for Apple for MacOS</a>
 
 Appreciate if you give me bug reports or some advices on my codes.
