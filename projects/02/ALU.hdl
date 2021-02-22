@@ -63,5 +63,5 @@ CHIP ALU {
     Or16Way(in= outtmp, out = tmp);
     Not(in=tmp, out=zr);
 
-    checkNegate(in= outtmp, out= ng);
+    checkNegated(in= outtmp, out= ng);
 }
