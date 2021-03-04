@@ -1,0 +1,27 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// This file is for RAM8.hdl
+
+CHIP To16 {
+    IN sel;
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+    And(a=sel, b=sel, out=out[0]);
+    And(a=sel, b=sel, out=out[1]);
+    And(a=sel, b=sel, out=out[2]);
+    And(a=sel, b=sel, out=out[3]);
+    And(a=sel, b=sel, out=out[4]);
+    And(a=sel, b=sel, out=out[5]);
+    And(a=sel, b=sel, out=out[6]);
+    And(a=sel, b=sel, out=out[7]);
+    And(a=sel, b=sel, out=out[8]);
+    And(a=sel, b=sel, out=out[9]);
+    And(a=sel, b=sel, out=out[10]);
+    And(a=sel, b=sel, out=out[11]);
+    And(a=sel, b=sel, out=out[12]);
+    And(a=sel, b=sel, out=out[13]);
+    And(a=sel, b=sel, out=out[14]);
+    And(a=sel, b=sel, out=out[15]);
+}
