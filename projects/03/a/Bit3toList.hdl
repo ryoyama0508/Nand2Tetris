@@ -1,0 +1,14 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// This file is for RAM64.hdl
+
+CHIP Bit3toList {
+    IN bit0, bit1, bit2;
+    OUT out[3];
+
+    PARTS:
+    // Put your code here:
+    And(a=bit0, b=bit0, out=out[0]);
+    And(a=bit1, b=bit1, out=out[1]);
+    And(a=bit2, b=bit2, out=out[2]);
+}
