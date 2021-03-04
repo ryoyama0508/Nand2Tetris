@@ -15,4 +15,8 @@ CHIP Register {
 
     PARTS:
     // Put your code here:
+    Bit(in=in[0], load=load[0], out=out[0]);
+    Bit(in=in[1], load=load[1], out=out[1]);
+    Bit(in=in[2], load=load[2], out=out[2]);
+    Bit(in=in[3], load=load[3], out=out[3]);
 }
