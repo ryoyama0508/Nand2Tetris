@@ -16,29 +16,24 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    // reset
+    To16(sel=reset, out=reset16);
+    To16(sel=false, out=f16);
+    And16(a=reset16, b=f16, out=outreset);
 
-    // Put DFFs to get(t-1) values
-    DFF(in=reset, out=t-1reset);
-    DFF(in=load, out=t-1load);
-    DFF(in=inc, out=t-1inc);
+    // load
+    To16(sel=load, out=load16);
+    And16(a=load16, b=in, out=outload);
 
-    DFF16(in=in, out=t-1in);
-
-    To16(sel=t-1reset, out=t-1reset16);
-    To16(sel=false, out=false16);
-    And16(a=t-1reset16, b=false16, out=outreset);
-
-    To16(sel=t-1load, out=t-1load16);
-    And16(a=t-1load16, b=t-1in, out=outload);
-
+    // inc
     To16(sel=inc, out=inc16);
-    Inc16(in=lastout, out=t-1outinced);
-    And16(a=t-1outinced, b=inc16, out=outinc);
+    Inc16(in=lastout, out=incedlastout);
+    And16(a=incedlastout, b=inc16, out=outinc);
 
     // conclude
-    And16(a=outreset, b=outload, out=tmp);
-    And16(a=outinc, b=tmp, out=outforDFF16);
+    Mux16(a=lastout, b=outinc, sel=inc, out=lastoutorinc);
+    Mux16(a=lastoutorinc, b=outload, sel=load, out=lastoutorincorload);
+    Mux16(a=lastoutorincorload, b=outreset, sel=reset, out=lastoutorincorloadorreset);
 
-    DFF16(in=outforDFF16, out=lastout, out=out);
+    DFF16(in=lastoutorincorloadorreset, out=lastout, out=out);
 }

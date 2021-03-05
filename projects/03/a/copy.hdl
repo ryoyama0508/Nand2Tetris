@@ -1,0 +1,58 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/PC.hdl
+
+/**
+ * A 16-bit counter with load and reset control bits.
+ * if      (reset[t] == 1) out[t+1] = 0
+ * else if (load[t] == 1)  out[t+1] = in[t]
+ * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
+ * else                    out[t+1] = out[t]
+ */
+
+CHIP PC {
+    IN in[16],load,inc,reset;
+    OUT out[16];
+
+    PARTS:
+    // reset
+    To16(sel=reset, out=reset16);
+    To16(sel=false, out=f16);
+    And16(a=reset16, b=f16, out=outreset);
+
+    // load
+    To16(sel=load, out=load16);
+    And16(a=load16, b=in, out=outload);
+
+    // inc
+    To16(sel=inc, out=inc16);
+    Inc16(in=lastout, out=incedlastout);
+    And16(a=incedlastout, b=inc16, out=outinc);
+
+    // conclude
+    DFF(in=reset, out=lastreset);
+    To16(sel=lastreset, out=lastreset16);
+    And16(a=outreset, b=lastreset16, out=tmpreset);
+
+    DFF(in=load, out=lastload);
+    To16(sel=lastload, out=lastload16);
+    And16(a=outload, b=lastload16, out=tmpload);
+
+    DFF(in=inc, out=lastinc);
+    To16(sel=lastinc, out=lastinc16);
+    And16(a=outinc, b=lastinc16, out=tmpinc);
+
+    Not16(in=lastreset16, out=notlastreset16);
+    Not16(in=lastload16, out=notlastload16);
+    Not16(in=lastinc16, out=notlastinc16);
+    And16(a=notlastreset16, b=notlastload16, out=tmp00);
+    And16(a=notlastinc16, b=tmp00, out=tmp01);
+    And16(a=lastout, b=tmp01, out=tmplastout);
+
+    Or16(a=tmpreset, b=tmpload, out=tmp02);
+    Or16(a=tmpinc, b=tmplastout, out=tmp03);
+
+    Or16(a=tmp02, b=tmp03, out=lasttmp);
+    DFF16(in=lasttmp, out=lastout, out=out);
+}
