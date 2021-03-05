@@ -87,6 +87,7 @@ CHIP RAM64 {
 
     RAM8(in=in111, load=load, address=last3address, out=out111);
 
+    //conclude
     And16(a=out000, b=out001, out=tmp0);
     And16(a=out010, b=out011, out=tmp1);
     And16(a=out100, b=out101, out=tmp2);
