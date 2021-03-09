@@ -19,3 +19,11 @@ Appreciate if you give me bug reports or some advices on my codes.
 ### Hardware Simulator
 <a href="https://b1391bd6-da3d-477d-8c01-38cdf774495a.filesusr.com/ugd/44046b_bfd91435260748439493a60a8044ade6.pdf
 " target="_blank">Hardware Simulator Tutorial</a>
+
+### Assembler
+<a href="https://b1391bd6-da3d-477d-8c01-38cdf774495a.filesusr.com/ugd/44046b_759f4f811ad14e12ac45bc60dd679fa3.pdf
+" target="_blank">Assembler Tutorial</a>
+
+### CPU Emulator
+<a href="https://b1391bd6-da3d-477d-8c01-38cdf774495a.filesusr.com/ugd/44046b_f63aba2611944e82974c9c5d5a3821fe.pdf
+" target="_blank">Assembler Tutorial</a>
