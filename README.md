@@ -7,7 +7,7 @@ The Elements of Computing Systems (Building a Modern Computer from First Princip
 
 
 Codes right here are software tools, the answers, or tests scripts of `Implementation section` in the book.
-You can use my code as hints or for just checking different ways of answer than yours.
+You can use my code as hints or for just checking different ways of answers than yours.
 
 Appreciate if you give me bug reports or some advices on my codes.
 
