@@ -25,19 +25,55 @@
  * than to the address resulting from executing the current instruction. 
  */
 
-CHIP CPU {
-
+CHIP CPU {     
+    
     IN  inM[16],         // M value input  (M = contents of RAM[A])
         instruction[16], // Instruction for execution
-        reset;           // Signals whether to re-start the current
-                         // program (reset==1) or continue executing
-                         // the current program (reset==0).
-
-    OUT outM[16],        // M value output
-        writeM,          // Write to M? 
-        addressM[15],    // Address in data memory (of M)
-        pc[15];          // address of next instruction
-
+        reset;           // Signals whether to re-start     
+        
+    OUT outM[16],        // M value output     
+        writeM,          // Write to M?     
+        addressM[15],    // Address in data memory (of M)     
+        pc[15];          // address of next instruction     
+        
     PARTS:
-    // Put your code here:
+    //ARegister
+    Not(in=instruction[15], out=aload);
+    And(a=instruction[15], b=instruction[5], out=instructionloadA);   
+    
+    Or(a=aload, b=instructionloadA, out=aregload);
+
+    // syntax! you can two output   
+    ARegister(in=mux1out, load=aregload, out=aregisterout, out[0..14]=addressM);     
+    
+    
+    
+    //=============DRegister=============
+    And(a=instruction[15], b=instruction[4], out=dregload);
+
+    // if the first bit is 1 && and d2(instruction[4] == 1(meaning regist D), take ALU result */
+    DRegister(in=aluRes, load=dregload, out=alux);
+    
+    
+    
+    /** if it's not an A-instruction, we should never let the Mux's sel to take in the value of the instruction.*/
+    
+    Mux16(a=aluRes, b=instruction, sel=aload, out=mux1out);     
+    
+    //Mux2     
+    
+    And(a=instruction[15], b=instruction[12], out=mux2load);
+    /** only if both of the first bit and the "a" bit is 1, 
+    then we start to use the value we get from M, otherwise we will work on A */     
+    
+    Mux16(a=aregisterout, b=inM, sel=mux2load, out=aluy);
+    
+    //ALU
+    ALU(x=alux, y=aluy, zx=instruction[11], nx=instruction[10], zy=instruction[9], ny=instruction[8], f=instruction[7], no=instruction[6], out=aluRes, out=outM, zr=zr, ng=ng);
+    
+    Jmp(in=instruction, ng=ng, zr=zr, load=pcload, inc=inc);
+    PC(in=aregisterout, load=pcload, inc=inc, reset=reset, out[0..14]=pc);
+    
+    //WriteM
+    And(a=instruction[3], b=instruction[15], out=writeM);
 }

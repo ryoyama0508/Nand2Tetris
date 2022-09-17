@@ -1,0 +1,79 @@
+// This file is my original file and original chip.
+// This chip(API) is used at Mux4Way16.hdl
+
+CHIP Mux8way{
+    IN a, b, c, d, e, f, g, h, sel0, sel1, sel2;
+    OUT out;
+
+    PARTS:
+    //a
+    Not(in= sel0, out= notsel0of1);
+    Not(in= sel1, out= notsel1of1);
+    Not(in= sel2, out= notsel2of1);
+
+    And(a=notsel0of1, b=notsel1of1, out=temp1);
+    And(a=temp1, b=notsel2of1, out=selfora);
+
+    And(a=a, b=selfora, out=w1);
+
+    //b
+    Not(in= sel1, out= notsel1of2);
+    Not(in= sel2, out= notsel2of2);
+
+    And(a=notsel1of2, b=notsel2of2, out=temp2);
+    And(a=temp2, b=sel0, out=selforb);
+    And(a=b, b=selforb, out=w2);
+
+    //c
+    Not(in= sel0, out= notsel0of3);
+    And(a=notsel0of3, b=sel1, out=temp3);
+    Not(in=sel2, out=notsel2of3);
+    And(a=temp3, b=notsel2of3, out=selforc);
+
+    And(a=c, b=selforc, out=w3);
+
+    //d
+    Not(in=sel2, out=notsel2of4);
+    And(a=notsel2of4, b=sel1, out=temp4);
+    And(a=temp4, b=sel0, out=selford);
+
+    And(a=d, b=selford, out=w4);
+
+    //e
+    Not(in=sel0, out=notsel0of4);
+    Not(in=sel1, out=notsel1of3);
+    And(a=notsel0of4, b=notsel1of3, out=temp5);
+    And(a=sel2, b=temp5, out=selfore);
+
+    And(a=e, b=selfore, out=w5);
+
+    //f
+    Not(in=sel1, out=notsel1of4);
+    And(a=sel0, b=notsel1of4, out=temp6);
+    And(a=temp6, b=sel2, out=selforf);
+
+    And(a=f, b=selforf, out=w6);
+
+    //g
+    And(a=sel2, b=sel1, out=temp7);
+    Not(in=sel0, out=notsel0of5);
+    And(a=temp7, b=notsel0of5, out=selforg);
+
+    And(a=g, b=selforg, out=w7);
+
+    //h
+    And(a=sel0, b=sel1, out=temp8);
+    And(a=temp8, b=sel2, out=selforh);
+
+    And(a=h, b=selforh, out=w8);
+
+    Or(a=w1, b=w2, out=w9);
+    Or(a=w3, b=w4, out=w10);
+    Or(a=w5, b=w6, out=w11);
+    Or(a=w7, b=w8, out=w12);
+
+    Or(a=w9, b=w10, out=w13);
+    Or(a=w11, b=w12, out=w14);
+
+    Or(a=w13, b=w14, out=out);
+}

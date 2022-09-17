@@ -15,90 +15,16 @@ CHIP RAM64 {
     OUT out[16];
 
     PARTS:
-    // Negate address bits (these are used later at below)
-    Not(in=address[3], out=notaddress3);
-    Not(in=address[4], out=notaddress4);
-    Not(in=address[5], out=notaddress5);
+	DMux8Way(in=load, sel=address[3..5], a=load1, b=load2, c=load3, d=load4, e=load5, f=load6, g=load7, h=load8);
 
-    // convert last 3 bits to list[3] in order to use RAM8
-    Bit3toList(bit2=address[2], bit1=address[1], bit0=address[0], out=last3address);
-    
-    // 000...
-    And(a=notaddress3, b=notaddress4, out=tmpaddr000);
-    And(a=tmpaddr000, b=notaddress5, out=sel000);
-    To16(sel=sel000, out=out16of000);
-    And16(a=out16of000, b=in, out=in000);
-    And(a=sel000, b=load, out=reallyload000);
-    
-    RAM8(in=in000, load=reallyload000, address=last3address, out=out000);
+	RAM8(in=in, load=load1, address=address[0..2], out=out1);
+	RAM8(in=in, load=load2, address=address[0..2], out=out2);
+	RAM8(in=in, load=load3, address=address[0..2], out=out3);
+	RAM8(in=in, load=load4, address=address[0..2], out=out4);
+	RAM8(in=in, load=load5, address=address[0..2], out=out5);
+	RAM8(in=in, load=load6, address=address[0..2], out=out6);
+	RAM8(in=in, load=load7, address=address[0..2], out=out7);
+	RAM8(in=in, load=load8, address=address[0..2], out=out8);
 
-    // 001...
-    And(a=address[3], b=notaddress4, out=tmpaddr001);
-    And(a=tmpaddr001, b=notaddress5, out=sel001);
-    To16(sel=sel001, out=out16of001);
-    And16(a=out16of001, b=in, out=in001);
-    And(a=sel001, b=load, out=reallyload001);
-
-    RAM8(in=in001, load=reallyload001, address=last3address, out=out001);
-
-    // 010...
-    And(a=notaddress3, b=address[4], out=tmpaddr010);
-    And(a=tmpaddr010, b=notaddress5, out=sel010);
-    To16(sel=sel010, out=out16of010);
-    And16(a=out16of010, b=in, out=in010);
-    And(a=sel010, b=load, out=reallyload010);
-
-    RAM8(in=in010, load=reallyload010, address=last3address, out=out010);
-
-    // 011...
-    And(a=address[3], b=address[4], out=tmpaddr011);
-    And(a=tmpaddr011, b=notaddress5, out=sel011);
-    To16(sel=sel011, out=out16of011);
-    And16(a=out16of011, b=in, out=in011);
-    And(a=sel011, b=load, out=reallyload011);
-
-    RAM8(in=in011, load=reallyload011, address=last3address, out=out011);
-
-    // 100...
-    And(a=notaddress3, b=notaddress4, out=tmpaddr100);
-    And(a=tmpaddr100, b=address[5], out=sel100);
-    To16(sel=sel100, out=out16of100);
-    And16(a=out16of100, b=in, out=in100);
-    And(a=sel100, b=load, out=reallyload100);
-
-    RAM8(in=in100, load=reallyload100, address=last3address, out=out100);
-
-    // 101...
-    And(a=address[3], b=notaddress4, out=tmpaddr101);
-    And(a=tmpaddr101, b=address[5], out=sel101);
-    To16(sel=sel101, out=out16of101);
-    And16(a=out16of101, b=in, out=in101);
-    And(a=sel101, b=load, out=reallyload101);
-
-    RAM8(in=in101, load=reallyload101, address=last3address, out=out101);
-
-    // 110...
-    And(a=notaddress3, b=address[4], out=tmpaddr110);
-    And(a=tmpaddr110, b=address[5], out=sel110);
-    To16(sel=sel110, out=out16of110);
-    And16(a=out16of110, b=in, out=in110);
-    And(a=sel110, b=load, out=reallyload110);
-
-    RAM8(in=in110, load=reallyload110, address=last3address, out=out110);
-
-    // 111...
-    And(a=address[3], b=address[4], out=tmpaddr111);
-    And(a=tmpaddr111, b=address[5], out=sel111);
-    To16(sel=sel111, out=out16of111);
-    And16(a=out16of111, b=in, out=in111);
-    And(a=sel111, b=load, out=reallyload111);
-
-    RAM8(in=in111, load=reallyload111, address=last3address, out=out111);
-
-    //conclude
-    Bit3toList(bit2=address[5], bit1=address[4], bit0=address[3], out=first3address);
-    Mux8Way16(a=out000, b=out001, c=out010, d=out011,
-    e=out100, f=out101, g=out110, h=out111,
-    sel=first3address, out=out);
-    
+	Mux8Way16(a=out1, b=out2, c=out3, d=out4, e=out5, f=out6, g=out7, h=out8, sel=address[3..5], out=out);    
 }

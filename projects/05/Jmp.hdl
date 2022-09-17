@@ -1,0 +1,16 @@
+CHIP Jmp {     
+    IN  in[16], zr, ng;     
+    OUT load, inc;     
+    
+    PARTS:
+    Not(in=ng, out=notnegative);
+    Not(in=zr, out=notzero);
+    And(a=notnegative, b=notzero, out=positive);     
+    And(a=in[0], b=positive, out=checkpositiveitive);     
+    And(a=in[1], b=zr, out=checkzero);     
+    And(a=in[2], b=ng, out=checknegative);     
+    Or(a=checkpositiveitive, b=checkzero, out=positiveitiveorzero);     
+    Or(a=positiveitiveorzero, b=checknegative, out=preload);     
+    And(a=in[15], b=preload, out=notincrement, out=load);     
+    Not(in=notincrement, out=inc);
+}

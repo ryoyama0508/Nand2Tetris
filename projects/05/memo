@@ -1,0 +1,39 @@
+memo
+
+how to use hardware simulator
+the computer chip is loaded 
+
+didn't do any shit
+
+why??
+Computer.hdl need to have the cpu and memory??
+
+if thats the case,
+
+its because the cpu and memory didn't set or not working
+
+how memory work??
+people(or maybe software) loads a program
+or designated monitor or keyboard memory
+
+keyboard memory always listen?? how?? -> program working(infinite looping job)
+
+how does CPU works??
+
+
+CPU c inst in detail 
+c inst is compute
+arithmetic logic
+where to store (MDA)
+or jump
+
+what do we need
+
+diff with a
+A is for
+A registers
+what memory address or direct value you wanna store
+
+ALU control bits
+destination load
+jump bits

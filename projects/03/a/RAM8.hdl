@@ -15,77 +15,14 @@ CHIP RAM8 {
     OUT out[16];
 
     PARTS:
-    // Negate address bits (these are used later at below)
-    Not(in=address[0], out=notaddress0);
-    Not(in=address[1], out=notaddress1);
-    Not(in=address[2], out=notaddress2);
-
-    // 000
-    And(a=notaddress0, b=notaddress1, out=tmpaddr000);
-    And(a=tmpaddr000, b=notaddress2, out=sel000);
-    To16(sel=sel000, out=out16of000);
-    And16(a=out16of000, b=in, out=in000);
-    And(a=sel000, b=load, out=reallyload000);
-    Register(in=in000, load=reallyload000, out=out000);
-
-    // 001
-    And(a=address[0], b=notaddress1, out=tmpaddr001);
-    And(a=tmpaddr001, b=notaddress2, out=sel001);
-    To16(sel=sel001, out=out16of001);
-    And16(a=out16of001, b=in, out=in001);
-    And(a=sel001, b=load, out=reallyload001);
-    Register(in=in001, load=reallyload001, out=out001);
-
-    // 010
-    And(a=notaddress0, b=address[1], out=tmpaddr010);
-    And(a=tmpaddr010, b=notaddress2, out=sel010);
-    To16(sel=sel010, out=out16of010);
-    And16(a=out16of010, b=in, out=in010);
-    And(a=sel010, b=load, out=reallyload010);
-    Register(in=in010, load=reallyload010, out=out010);
-
-    // 011
-    And(a=address[0], b=address[1], out=tmpaddr011);
-    And(a=tmpaddr011, b=notaddress2, out=sel011);
-    To16(sel=sel011, out=out16of011);
-    And16(a=out16of011, b=in, out=in011);
-    And(a=sel011, b=load, out=reallyload011);
-    Register(in=in011, load=reallyload011, out=out011);
-
-    // 100
-    And(a=notaddress0, b=notaddress1, out=tmpaddr100);
-    And(a=tmpaddr100, b=address[2], out=sel100);
-    To16(sel=sel100, out=out16of100);
-    And16(a=out16of100, b=in, out=in100);
-    And(a=sel100, b=load, out=reallyload100);
-    Register(in=in100, load=reallyload100, out=out100);
-
-    // 101
-    And(a=address[0], b=notaddress1, out=tmpaddr101);
-    And(a=tmpaddr101, b=address[2], out=sel101);
-    To16(sel=sel101, out=out16of101);
-    And16(a=out16of101, b=in, out=in101);
-    And(a=sel101, b=load, out=reallyload101);
-    Register(in=in101, load=reallyload101, out=out101);
-
-    // 110
-    And(a=notaddress0, b=address[1], out=tmpaddr110);
-    And(a=tmpaddr110, b=address[2], out=sel110);
-    To16(sel=sel110, out=out16of110);
-    And16(a=out16of110, b=in, out=in110);
-    And(a=sel110, b=load, out=reallyload110);
-    Register(in=in110, load=reallyload110, out=out110);
-
-    // 111
-    And(a=address[0], b=address[1], out=tmpaddr111);
-    And(a=tmpaddr111, b=address[2], out=sel111);
-    To16(sel=sel111, out=out16of111);
-    And16(a=out16of111, b=in, out=in111);
-    And(a=sel111, b=load, out=reallyload111);
-    Register(in=in111, load=reallyload111, out=out111);
-
-    // conclude
-    Mux8Way16(a=out000, b=out001, c=out010, d=out011,
-    e=out100, f=out101, g=out110, h=out111,
-    sel=address, out=out);
+	DMux8Way(in=load, sel=address, a=loada, b=loadb, c=loadc, d=loadd, e=loade, f=loadf, g=loadg, h=loadh);
+    Register(in=in, load=loada, out=outa);
+    Register(in=in, load=loadb, out=outb);
+    Register(in=in, load=loadc, out=outc);
+    Register(in=in, load=loadd, out=outd);
+    Register(in=in, load=loade, out=oute);
+    Register(in=in, load=loadf, out=outf);
+    Register(in=in, load=loadg, out=outg);
+    Register(in=in, load=loadh, out=outh);
+	Mux8Way16(a=outa, b=outb, c=outc, d=outd, e=oute, f=outf, g=outg, h=outh, sel=address, out=out);	
 }
