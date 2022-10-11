@@ -56,7 +56,7 @@ class Assembler:
                 line_num += 1
             line      = myfile.readline()
 
-    def read2(self, myfile, file_name):
+    def read2(self, myfile, file_name): #test
         var_index = 16
         line     = myfile.readline()
 
